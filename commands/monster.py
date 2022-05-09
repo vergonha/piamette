@@ -32,14 +32,13 @@ class Item(commands.Cog):
         for item in drops:
             name = ragIdItem.checkItemId(item)
             dropsName.append(name)  
-        spawns = ', '.join(map(str, spawn)) 
         dropNames = ''
         spawnList = ''
         for i in range(0, len(spawn)):
-            spawnList += f'{spawn[i]} [{amount[i]}]\n'
+            spawnList += f'{spawn[i]} - *[{amount[i]}]*\n'
         for i in range(0, len(dropsName)):
-            dropNames += f'{dropsName[i]} [{dropsChance[i]}%]\n'
-        await ctx.send(f'\n\n{monsterName}\n\nSpawn: \n{spawnList}\nDrops: \n\n{dropNames}')
+            dropNames += f'{dropsName[i]} - *[{dropsChance[i]}%]*\n'
+        await ctx.send(f'\n\n**{monsterName}**\n\n**Spawn:** \n{spawnList}\n**Drops:**\n{dropNames}')
      
 def setup(client):
   client.add_cog(Item(client))

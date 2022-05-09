@@ -25,7 +25,7 @@ class Item(commands.Cog):
       if name in "¼­´Ã¤Âï" or desc in "¼­´Ã¤Âï":
         await ctx.send("Try specifying the server.")
       else:
-        await ctx.send(f'\n{name}\n\n{desc}')
+        await ctx.send(f'\n**{name}**\n\n{desc}\n')
         if 'Card' in name:
           await ctx.send(f'https://static.divine-pride.net/images/items/cards/{id}.png')
     except Exception as e:
