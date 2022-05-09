@@ -26,6 +26,8 @@ class Item(commands.Cog):
         await ctx.send("Try specifying the server.")
       else:
         await ctx.send(f'\n{name}\n\n{desc}')
+        if 'Card' in name:
+          await ctx.send(f'https://static.divine-pride.net/images/items/cards/{id}.png')
     except Exception as e:
       await ctx.send('Could not find the item.')
       print(e)
