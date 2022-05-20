@@ -7,6 +7,7 @@ from decouple import config
 
 
 
+
 class Item(commands.Cog):
   async def errorEmbed(self):
     url_image = 'https://thumbs.gfycat.com/LiquidPerkyBoaconstrictor-max-1mb.gif'
