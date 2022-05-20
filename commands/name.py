@@ -4,9 +4,7 @@ import json
 from bs4 import BeautifulSoup
 import discord
 from decouple import config
-import urllib.request
-import urllib.parse
-
+import urllib
 
 class Item(commands.Cog):
     async def errorEmbed(self):
@@ -97,14 +95,21 @@ class Item(commands.Cog):
             try:
                 for i in range(0, len(itemList)):
                     item += f'\n**Name:** {itemList[i][0]}\n**ID:**{itemList[i][1]}\n'
-                if len(item) > 2000:
-                    site = 'https://pastebin.com/api/api_post.php'
-                    our_data = urllib.parse.urlencode({"api_dev_key": pastebin, "api_option": "paste", "api_paste_code": item, 'api_paste_expire_date': '5M'})
-                    our_data = our_data.encode()
-                    request = urllib.request.Request(site, method='POST')
-                    resp = urllib.request.urlopen(request, our_data)
-                    resp = str(resp.read(), 'utf-8')
-                    await ctx.send(embed=await self.embedItem(resp))
+                if len(item) > 1000:
+                    data ={
+                        "api_dev_key":pastebin,
+                        "api_paste_code": item,
+                        "api_paste_name": 'Matchs',
+                        "api_option":'paste',
+                        "api_paste_expire_date": "10M",
+                        "api_user_key": None,
+                        "api_paste_format": "php",
+                    }
+                    resp = requests.post('https://pastebin.com/api/api_post.php', data=data).content
+                    if not 'Bad API request' in str(resp):
+                        await ctx.send(embed=await self.embedItem(resp.decode("utf-8")))
+                    else:
+                        await ctx.send('Try be a little bit more specific :)')
                 else:
                     await ctx.send(embed=await self.embedItem(item))
             except Exception as e:
